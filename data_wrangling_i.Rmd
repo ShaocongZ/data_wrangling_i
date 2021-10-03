@@ -2,7 +2,9 @@
 title: "data_wrangling_i"
 author: "Shaocong Zhang"
 date: "10/3/2021"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 I'm an R Markdown document! 
 
@@ -102,16 +104,15 @@ head(pulse_data, 5)
 ```
 
 ```{r}
-pups_base = read.csv("./data_import_examples/FAS_pups.csv")
-pups_readr = read_csv("./data_import_examples/FAS_pups.csv")
+#pups_base = read.csv("./data_import_examples/FAS_pups.csv")
+#pups_readr = read_csv("./data_import_examples/FAS_pups.csv")
 
-View(pups_base)
-View(pups_readr)
+#View(pups_base)
+#View(pups_readr)
 
-pups_base
-pups_readr
+#pups_base
+#pups_readr
 
-pups_base$S
-pups_readr$S
+#pups_base$S
+#pups_readr$S
 ```
-

@@ -1,0 +1,643 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={data\_wrangling\_i},
+  pdfauthor={Shaocong Zhang},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{data\_wrangling\_i}
+\author{Shaocong Zhang}
+\date{10/3/2021}
+
+\begin{document}
+\maketitle
+
+I'm an R Markdown document!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.4     v dplyr   1.0.7
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   2.0.1     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\hypertarget{section-1}{%
+\section{Section 1}\label{section-1}}
+
+Here's a \textbf{code chunk} that samples from a \emph{normal
+distribution}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samp }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\FunctionTok{length}\NormalTok{(samp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100
+\end{verbatim}
+
+\hypertarget{section-2}{%
+\section{Section 2}\label{section-2}}
+
+I can take the mean of the sample, too! The mean is -0.029888.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/Users/zhangshaocong/Desktop/P8105 Data Science I/Data Wrangling I/data_wrangling_i"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"./data\_import\_examples/FAS\_litters.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 49 Columns: 8
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): Group, Litter Number
+## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{spec}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## cols(
+##   Group = col_character(),
+##   `Litter Number` = col_character(),
+##   `GD0 weight` = col_double(),
+##   `GD18 weight` = col_double(),
+##   `GD of Birth` = col_double(),
+##   `Pups born alive` = col_double(),
+##   `Pups dead @ birth` = col_double(),
+##   `Pups survive` = col_double()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Group"             "Litter Number"     "GD0 weight"       
+## [4] "GD18 weight"       "GD of Birth"       "Pups born alive"  
+## [7] "Pups dead @ birth" "Pups survive"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data }\OtherTok{=}\NormalTok{ janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{(litters\_data)}
+\FunctionTok{names}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "group"           "litter_number"   "gd0_weight"      "gd18_weight"    
+## [5] "gd_of_birth"     "pups_born_alive" "pups_dead_birth" "pups_survive"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 49 x 8
+##    group litter_number   gd0_weight gd18_weight gd_of_birth pups_born_alive
+##    <chr> <chr>                <dbl>       <dbl>       <dbl>           <dbl>
+##  1 Con7  #85                   19.7        34.7          20               3
+##  2 Con7  #1/2/95/2             27          42            19               8
+##  3 Con7  #5/5/3/83/3-3         26          41.4          19               6
+##  4 Con7  #5/4/2/95/2           28.5        44.1          19               5
+##  5 Con7  #4/2/95/3-3           NA          NA            20               6
+##  6 Con7  #2/2/95/3-2           NA          NA            20               6
+##  7 Con7  #1/5/3/83/3-3/2       NA          NA            20               9
+##  8 Con8  #3/83/3-3             NA          NA            20               9
+##  9 Con8  #2/95/3               NA          NA            20               8
+## 10 Con8  #3/5/2/2/95           28.5        NA            20               8
+## # ... with 39 more rows, and 2 more variables: pups_dead_birth <dbl>,
+## #   pups_survive <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(litters\_data, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 8
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   <chr> <chr>              <dbl>       <dbl>       <dbl>           <dbl>
+## 1 Low8  #100                20          39.2          20               8
+## 2 Low8  #4/84               21.8        35.2          20               4
+## 3 Low8  #108                25.6        47.5          20               8
+## 4 Low8  #99                 23.5        39            20               6
+## 5 Low8  #110                25.5        42.7          20               7
+## # ... with 2 more variables: pups_dead_birth <dbl>, pups_survive <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skimr}\SpecialCharTok{::}\FunctionTok{skim}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Data summary}\tabularnewline
+\toprule
+& \\
+\midrule
+\endfirsthead
+\toprule
+& \\
+\midrule
+\endhead
+Name & litters\_data \\
+Number of rows & 49 \\
+Number of columns & 8 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Column type frequency: & \\
+character & 2 \\
+numeric & 6 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Group variables & None \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: character}
+
+\begin{longtable}[]{@{}lrrrrrrr@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & min & max & empty &
+n\_unique & whitespace \\
+\midrule
+\endhead
+group & 0 & 1 & 4 & 4 & 0 & 6 & 0 \\
+litter\_number & 0 & 1 & 3 & 15 & 0 & 49 & 0 \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: numeric}
+
+\begin{longtable}[]{@{}lrrrrrrrrrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & mean & sd & p0 & p25 &
+p50 & p75 & p100 & hist \\
+\midrule
+\endhead
+gd0\_weight & 15 & 0.69 & 24.38 & 3.28 & 17.0 & 22.30 & 24.10 & 26.67 &
+33.4 & ▃▇▇▆▁ \\
+gd18\_weight & 17 & 0.65 & 41.52 & 4.05 & 33.4 & 38.88 & 42.25 & 43.80 &
+52.7 & ▃▃▇▂▁ \\
+gd\_of\_birth & 0 & 1.00 & 19.65 & 0.48 & 19.0 & 19.00 & 20.00 & 20.00 &
+20.0 & ▅▁▁▁▇ \\
+pups\_born\_alive & 0 & 1.00 & 7.35 & 1.76 & 3.0 & 6.00 & 8.00 & 8.00 &
+11.0 & ▁▃▂▇▁ \\
+pups\_dead\_birth & 0 & 1.00 & 0.33 & 0.75 & 0.0 & 0.00 & 0.00 & 0.00 &
+4.0 & ▇▂▁▁▁ \\
+pups\_survive & 0 & 1.00 & 6.41 & 2.05 & 1.0 & 5.00 & 7.00 & 8.00 & 9.0
+& ▁▃▂▇▇ \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"./data\_import\_examples/FAS\_litters.csv"}\NormalTok{,}
+  \AttributeTok{skip =} \DecValTok{10}\NormalTok{, }\AttributeTok{col\_names =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 40 Columns: 8
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): X1, X2
+## dbl (6): X3, X4, X5, X6, X7, X8
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{spec}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character(),
+##   X3 = col_double(),
+##   X4 = col_double(),
+##   X5 = col_double(),
+##   X6 = col_double(),
+##   X7 = col_double(),
+##   X8 = col_double()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 8
+##   X1    X2                 X3    X4    X5    X6    X7    X8
+##   <chr> <chr>           <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 Con8  #3/5/2/2/95      28.5    NA    20     8     0     8
+## 2 Con8  #5/4/3/83/3      28      NA    19     9     0     8
+## 3 Con8  #1/6/2/2/95-2    NA      NA    20     7     0     6
+## 4 Con8  #3/5/3/83/3-3-2  NA      NA    20     8     0     8
+## 5 Con8  #2/2/95/2        NA      NA    19     5     0     4
+## 6 Con8  #3/6/2/2/95-3    NA      NA    20     7     0     7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"./data\_import\_examples/FAS\_litters.csv"}\NormalTok{,}
+  \AttributeTok{col\_types =} \FunctionTok{cols}\NormalTok{(}
+    \AttributeTok{Group =} \FunctionTok{col\_character}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{Litter Number}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_character}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{GD0 weight}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_double}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{GD18 weight}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_double}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{GD of Birth}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_integer}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{Pups born alive}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_integer}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{Pups dead @ birth}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_integer}\NormalTok{(),}
+    \StringTok{\textasciigrave{}}\AttributeTok{Pups survive}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{col\_integer}\NormalTok{()}
+\NormalTok{  )}
+\NormalTok{)}
+\FunctionTok{tail}\NormalTok{(litters\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 8
+##   Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
+##   <chr> <chr>                  <dbl>         <dbl>         <int>
+## 1 Low8  #79                     25.4          43.8            19
+## 2 Low8  #100                    20            39.2            20
+## 3 Low8  #4/84                   21.8          35.2            20
+## 4 Low8  #108                    25.6          47.5            20
+## 5 Low8  #99                     23.5          39              20
+## 6 Low8  #110                    25.5          42.7            20
+## # ... with 3 more variables: Pups born alive <int>, Pups dead @ birth <int>,
+## #   Pups survive <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{litters\_data }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"./data\_import\_examples/FAS\_litters.csv"}\NormalTok{,}
+  \AttributeTok{col\_types =} \StringTok{"ccddiiii"}
+\NormalTok{)}
+\NormalTok{litters\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 49 x 8
+##    Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
+##    <chr> <chr>                  <dbl>         <dbl>         <int>
+##  1 Con7  #85                     19.7          34.7            20
+##  2 Con7  #1/2/95/2               27            42              19
+##  3 Con7  #5/5/3/83/3-3           26            41.4            19
+##  4 Con7  #5/4/2/95/2             28.5          44.1            19
+##  5 Con7  #4/2/95/3-3             NA            NA              20
+##  6 Con7  #2/2/95/3-2             NA            NA              20
+##  7 Con7  #1/5/3/83/3-3/2         NA            NA              20
+##  8 Con8  #3/83/3-3               NA            NA              20
+##  9 Con8  #2/95/3                 NA            NA              20
+## 10 Con8  #3/5/2/2/95             28.5          NA              20
+## # ... with 39 more rows, and 3 more variables: Pups born alive <int>,
+## #   Pups dead @ birth <int>, Pups survive <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pups.data }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"./data\_import\_examples/FAS\_pups.csv"}\NormalTok{, }\AttributeTok{col\_types =} \StringTok{"ciiiii"}\NormalTok{)}
+\FunctionTok{spec}\NormalTok{(pups.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## cols(
+##   `Litter Number` = col_character(),
+##   Sex = col_integer(),
+##   `PD ears` = col_integer(),
+##   `PD eyes` = col_integer(),
+##   `PD pivot` = col_integer(),
+##   `PD walk` = col_integer()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(pups.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   `Litter Number`   Sex `PD ears` `PD eyes` `PD pivot` `PD walk`
+##   <chr>           <int>     <int>     <int>      <int>     <int>
+## 1 #85                 1         4        13          7        11
+## 2 #85                 1         4        13          7        12
+## 3 #1/2/95/2           1         5        13          7         9
+## 4 #1/2/95/2           1         5        13          8        10
+## 5 #5/5/3/83/3-3       1         5        13          8        10
+## 6 #5/5/3/83/3-3       1         5        14          6         9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(pups.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Litter Number" "Sex"           "PD ears"       "PD eyes"      
+## [5] "PD pivot"      "PD walk"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pups.data }\OtherTok{=}\NormalTok{ janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{(pups.data)}
+\FunctionTok{names}\NormalTok{(pups.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "litter_number" "sex"           "pd_ears"       "pd_eyes"      
+## [5] "pd_pivot"      "pd_walk"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skimr}\SpecialCharTok{::}\FunctionTok{skim}\NormalTok{(pups.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Data summary}\tabularnewline
+\toprule
+& \\
+\midrule
+\endfirsthead
+\toprule
+& \\
+\midrule
+\endhead
+Name & pups.data \\
+Number of rows & 313 \\
+Number of columns & 6 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Column type frequency: & \\
+character & 1 \\
+numeric & 5 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Group variables & None \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: character}
+
+\begin{longtable}[]{@{}lrrrrrrr@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & min & max & empty &
+n\_unique & whitespace \\
+\midrule
+\endhead
+litter\_number & 0 & 1 & 3 & 15 & 0 & 49 & 0 \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: numeric}
+
+\begin{longtable}[]{@{}lrrrrrrrrrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & mean & sd & p0 & p25 &
+p50 & p75 & p100 & hist \\
+\midrule
+\endhead
+sex & 0 & 1.00 & 1.50 & 0.50 & 1 & 1 & 2 & 2 & 2 & ▇▁▁▁▇ \\
+pd\_ears & 18 & 0.94 & 3.68 & 0.59 & 2 & 3 & 4 & 4 & 5 & ▁▅▁▇▁ \\
+pd\_eyes & 13 & 0.96 & 12.99 & 0.62 & 12 & 13 & 13 & 13 & 15 & ▂▇▁▂▁ \\
+pd\_pivot & 13 & 0.96 & 7.09 & 1.51 & 4 & 6 & 7 & 8 & 12 & ▂▇▂▂▁ \\
+pd\_walk & 0 & 1.00 & 9.50 & 1.34 & 7 & 9 & 9 & 10 & 14 & ▆▇▇▂▁ \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{mlb11\_data }\OtherTok{=} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"data\_import\_examples/mlb11.xlsx"}\NormalTok{, }\AttributeTok{n\_max =} \DecValTok{20}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(mlb11\_data, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 12
+##   team         runs at_bats  hits homeruns bat_avg strikeouts stolen_bases  wins
+##   <chr>       <dbl>   <dbl> <dbl>    <dbl>   <dbl>      <dbl>        <dbl> <dbl>
+## 1 Texas Rang~   855    5659  1599      210   0.283        930          143    96
+## 2 Boston Red~   875    5710  1600      203   0.28        1108          102    90
+## 3 Detroit Ti~   787    5563  1540      169   0.277       1143           49    95
+## 4 Kansas Cit~   730    5672  1560      129   0.275       1006          153    71
+## 5 St. Louis ~   762    5532  1513      162   0.273        978           57    90
+## # ... with 3 more variables: new_onbase <dbl>, new_slug <dbl>, new_obs <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(haven)}
+\NormalTok{pulse\_data }\OtherTok{=} \FunctionTok{read\_sas}\NormalTok{(}\StringTok{"./data\_import\_examples/public\_pulse\_data.sas7bdat"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(pulse\_data, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 7
+##      ID   age Sex   BDIScore_BL BDIScore_01m BDIScore_06m BDIScore_12m
+##   <dbl> <dbl> <chr>       <dbl>        <dbl>        <dbl>        <dbl>
+## 1 10003  48.0 male            7            1            2            0
+## 2 10015  72.5 male            6           NA           NA           NA
+## 3 10022  58.5 male           14            3            8           NA
+## 4 10026  72.7 male           20            6           18           16
+## 5 10035  60.4 male            4            0            1            2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#pups\_base = read.csv("./data\_import\_examples/FAS\_pups.csv")}
+\CommentTok{\#pups\_readr = read\_csv("./data\_import\_examples/FAS\_pups.csv")}
+
+\CommentTok{\#View(pups\_base)}
+\CommentTok{\#View(pups\_readr)}
+
+\CommentTok{\#pups\_base}
+\CommentTok{\#pups\_readr}
+
+\CommentTok{\#pups\_base$S}
+\CommentTok{\#pups\_readr$S}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
